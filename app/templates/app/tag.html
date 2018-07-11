@@ -1,0 +1,26 @@
+<h3>Tasks with tag: {{ tag_text }}</h3>
+
+{% if task_list %}
+    <ul>
+    {% for task in task_list %}
+        <li>{{ task.description }} - {{ task.deadline }}- {{ task.deadline|timeuntil }}
+            {% for tag in task.tag_set.all %}
+                {{ tag.text }}
+            {% empty %}
+            {% endfor %}
+            <form action="{% url 'app:edit' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="task_id" value="{{ task.id }}">
+                <input type="submit" value="Edit task" />
+            </form>
+            <form action="{% url 'app:delete' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="task_id" value="{{ task.id }}">
+                <input type="submit" name="task_delete" value="Delete task" />
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>There are not any tasks.</p>
+{% endif %}

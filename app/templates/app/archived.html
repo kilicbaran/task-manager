@@ -1,0 +1,64 @@
+{% extends "app/base.html" %}
+
+{% block title %}Archived Tasks - Personal Task Manager{% endblock %}
+
+{% block navigation %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'app:add' %}">New Task</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'app:archived' %}">Archived Tasks</a>
+    </li>
+{% endblock %}
+
+
+{% block main %}
+
+    <h3 class="mt-3 mb-1">Archived Tasks</h3>
+
+    {% if task_list %}
+        <ul class="list-group">
+            {% for task in task_list %}
+                <li class="list-group-item d-flex justify-content-between flex-wrap align-items-center">
+                    <div>
+                        {{ task.description }}
+                        {% if task.tag_set.all %}
+                            {% for tag in task.tag_set.all %}
+                                <a class="badge badge-secondary"
+                                   href="{% url 'app:search' %}?query=tag:{{ tag.text }}">{{ tag.text }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    {% if task.archive_date %}
+                        <div class="text-muted">Archive date: {{ task.archive_date|date }}</div>
+                    {% endif %}
+                    <div class="d-flex flex-wrap">
+                        <form class="mr-1" action="{% url 'app:archive_toggle' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="task_id" value="{{ task.id }}">
+                            {% if task.archive_date %}
+                                <button class="btn" type="submit">Unarchive</button>
+                            {% else %}
+                                <button class="btn" type="submit">Archive</button>
+                            {% endif %}
+                        </form>
+                        <form class="mr-1" action="{% url 'app:edit' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="task_id" value="{{ task.id }}">
+                            <button class="btn" type="submit">Edit</button>
+                        </form>
+                        <form action="{% url 'app:delete' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="task_id" value="{{ task.id }}">
+                            <button class="btn" type="submit" name="task_delete">Delete</button>
+                        </form>
+                    </div>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are not any archived tasks.</p>
+    {% endif %}
+{% endblock main %}

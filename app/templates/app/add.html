@@ -1,0 +1,39 @@
+{% extends "app/base.html" %}
+
+{% block title %}New Task - Personal Task Manager{% endblock %}
+
+{% block navigation %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'app:add' %}">New Task</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'app:archived' %}">Archived Tasks</a>
+    </li>
+{% endblock %}
+
+{% block main %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <h3 class="mt-3">New task</h3>
+
+    <form action="{% url 'app:add' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <input id="desc" class="form-control" type="text" name="description">
+        </div>
+        <div class="form-group">
+            <label for="deadline">Deadline<span class="text-muted"> (Optional)</span></label>
+            <input id="deadline" class="form-control" type="date" name="deadline">
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags<span class="text-muted"> (Optional)</span></label>
+            <input id="tags" class="form-control" type="text" name="tags" aria-describedby="tagHelp">
+            <small id="tagHelp" class="form-text text-muted">Tags should not contain any spaces and must be comma
+                separated. e.g.: "tag-1, tag-2"
+            </small>
+        </div>
+        <input type="hidden" name="previous_url" value="{{ previous_url }}">
+        <button type="submit" class="btn btn-primary" name="task_add">Add task</button>
+    </form>
+{% endblock main %}
