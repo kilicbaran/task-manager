@@ -6,3 +6,7 @@ A personal task manager
 * Search tasks
 * Tag tasks
 * Set deadlines for tasks
+* Archive tasks
+
+## Screenshot
+![](screenshot.png)
