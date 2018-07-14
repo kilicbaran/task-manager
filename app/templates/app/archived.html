@@ -9,6 +9,16 @@
     <li class="nav-item active">
         <a class="nav-link" href="{% url 'app:archived' %}">Archived Tasks</a>
     </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sample Usage
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'app:student' %}">For a student</a>
+            <a class="dropdown-item" href="{% url 'app:clear' %}">Clear all tasks</a>
+        </div>
+    </li>
 {% endblock %}
 
 
@@ -38,20 +48,20 @@
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
                             {% if task.archive_date %}
-                                <button class="btn" type="submit">Unarchive</button>
+                                <button class="btn btn-primary" type="submit">Unarchive</button>
                             {% else %}
-                                <button class="btn" type="submit">Archive</button>
+                                <button class="btn btn-primary" type="submit">Archive</button>
                             {% endif %}
                         </form>
                         <form class="mr-1" action="{% url 'app:edit' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
-                            <button class="btn" type="submit">Edit</button>
+                            <button class="btn btn-primary" type="submit">Edit</button>
                         </form>
                         <form action="{% url 'app:delete' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
-                            <button class="btn" type="submit" name="task_delete">Delete</button>
+                            <button class="btn btn-primary" type="submit" name="task_delete">Delete</button>
                         </form>
                     </div>
 

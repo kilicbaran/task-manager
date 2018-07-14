@@ -26,20 +26,20 @@
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
                             {% if task.archive_date %}
-                                <button class="btn" type="submit">Unarchive</button>
+                                <button class="btn btn-primary" type="submit">Unarchive</button>
                             {% else %}
-                                <button class="btn" type="submit">Archive</button>
+                                <button class="btn btn-primary" type="submit">Archive</button>
                             {% endif %}
                         </form>
                         <form class="mr-1" action="{% url 'app:edit' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
-                            <button class="btn" type="submit">Edit</button>
+                            <button class="btn btn-primary" type="submit">Edit</button>
                         </form>
                         <form action="{% url 'app:delete' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
-                            <button class="btn" type="submit" name="task_delete">Delete</button>
+                            <button class="btn btn-primary" type="submit" name="task_delete">Delete</button>
                         </form>
                     </div>
 
@@ -70,20 +70,20 @@
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
                             {% if task.archive_date %}
-                                <button class="btn" type="submit">Unarchive</button>
+                                <button class="btn btn-primary" type="submit">Unarchive</button>
                             {% else %}
-                                <button class="btn" type="submit">Archive</button>
+                                <button class="btn btn-primary" type="submit">Archive</button>
                             {% endif %}
                         </form>
                         <form class="mr-1" action="{% url 'app:edit' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
-                            <button class="btn" type="submit">Edit</button>
+                            <button class="btn btn-primary" type="submit">Edit</button>
                         </form>
                         <form action="{% url 'app:delete' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="task_id" value="{{ task.id }}">
-                            <button class="btn" type="submit" name="task_delete">Delete</button>
+                            <button class="btn btn-primary" type="submit" name="task_delete">Delete</button>
                         </form>
                     </div>
 
